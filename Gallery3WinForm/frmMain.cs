@@ -58,20 +58,19 @@ namespace Gallery3WinForm
 
         private void lstArtists_DoubleClick(object sender, EventArgs e)
         {
-            /*
+            
             string lcKey;
 
             lcKey = Convert.ToString(lstArtists.SelectedItem);
             if (lcKey != null)
                 try
                 {
-                    frmArtist.Run(_ArtistList[lcKey]);
+                    frmArtist.Run(lstArtists.SelectedItem as string);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "This should never occur");
                 }
-                */
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
