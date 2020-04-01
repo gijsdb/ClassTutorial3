@@ -13,7 +13,7 @@ namespace Gallery3WinForm
 
         private frmArtist()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
 
         public static void Run(string prArtistName)
@@ -83,7 +83,7 @@ namespace Gallery3WinForm
 
         public void SetDetails(clsArtist prArtist)
         {
-            /*
+            
             _Artist = prArtist;
             txtName.Enabled = string.IsNullOrEmpty(_Artist.Name);
             UpdateForm();
@@ -91,7 +91,7 @@ namespace Gallery3WinForm
             //frmMain.Instance.GalleryNameChanged += new frmMain.Notify(updateTitle);
             //updateTitle(_Artist.ArtistList.GalleryName);
             Show();
-            */
+           
         }
 
         private void pushData()
@@ -145,27 +145,17 @@ namespace Gallery3WinForm
             */
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private async void btnClose_Click(object sender, EventArgs e)
         {
-            /*
-            if (isValid() == true)
-                try
-                {
-                    pushData();
-                    if (txtName.Enabled)
-                    {
-                        _Artist.NewArtist();
-                        MessageBox.Show("Artist added!", "Success");
-                        frmMain.Instance.UpdateDisplay();
-                        txtName.Enabled = false;
-                    }
-                    Hide();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                */
+            pushData();        
+            if (txtName.Enabled)
+            {
+                MessageBox.Show(await ServiceClient.InsertArtistAsync(_Artist));
+                frmMain.Instance.UpdateDisplay();
+                txtName.Enabled = false;
+            }
+            else
+                MessageBox.Show(await ServiceClient.UpdateArtistAsync(_Artist));
             Hide();
         }
 

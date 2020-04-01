@@ -4,7 +4,8 @@ using System.Windows.Forms;
 namespace Gallery3WinForm
 {
     public sealed partial class frmMain : Form
-    {   //Singleton
+    {   
+        //Singleton
         private static readonly frmMain _Instance = new frmMain();
 
         //private clsArtistList _ArtistList = new clsArtistList();
@@ -44,10 +45,9 @@ namespace Gallery3WinForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            
             try
-            {             
-                //frmArtist.Run(new clsArtist(_ArtistList));      
+            {
+                frmArtist.Run(null);
             }
             catch (Exception ex)
             {
