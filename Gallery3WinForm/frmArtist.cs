@@ -67,6 +67,9 @@ namespace Gallery3WinForm
             lstWorks.DataSource = _WorksList;
             lblTotal.Text = Convert.ToString(_WorksList.GetTotalValue());
             */
+            lstWorks.DataSource = null;
+            if (_Artist.WorksList != null)
+                lstWorks.DataSource = _Artist.WorksList;
         }
 
         public void UpdateForm()
@@ -96,11 +99,9 @@ namespace Gallery3WinForm
 
         private void pushData()
         {
-            /*
             _Artist.Name = txtName.Text;
             _Artist.Speciality = txtSpeciality.Text;
             _Artist.Phone = txtPhone.Text;
-            */
             //_WorksList.SortOrder = _SortOrder; // no longer required, updated with each rbByDate_CheckedChanged
         }
 
@@ -121,7 +122,7 @@ namespace Gallery3WinForm
         {
             try
             {
-                //_WorksList.EditWork(lstWorks.SelectedIndex);
+                frmWork.DispatchWorkForm(lstWorks.SelectedValue as clsAllWork);
                 UpdateDisplay();
                 frmMain.Instance.UpdateDisplay();
             }

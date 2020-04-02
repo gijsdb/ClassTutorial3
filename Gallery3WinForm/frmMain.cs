@@ -39,8 +39,15 @@ namespace Gallery3WinForm
             lstArtists.DataSource = lcDisplayList;
             lblValue.Text = Convert.ToString(_ArtistList.GetTotalValue());
             */
-            lstArtists.DataSource = null;
-            lstArtists.DataSource = await ServiceClient.GetArtistNamesAsync();
+            try
+            {
+                lstArtists.DataSource = null;
+                lstArtists.DataSource = await ServiceClient.GetArtistNamesAsync();
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Could not connect to server");
+            }
+           
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -86,7 +93,6 @@ namespace Gallery3WinForm
             }
             */
             Close();
-            
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

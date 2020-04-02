@@ -25,10 +25,38 @@ namespace Gallery3Selfhost
                 {
                     Name = (string)lcResult.Rows[0]["Name"],
                     Speciality = (string)lcResult.Rows[0]["Speciality"],
-                    Phone = (string)lcResult.Rows[0]["Phone"]
+                    Phone = (string)lcResult.Rows[0]["Phone"],
+                    WorksList = getArtistsWork(Name)
                 };
             else
                 return null;
+        }
+
+        private List<clsAllWork> getArtistsWork(string prName)
+        {
+            Dictionary<string, object> par = new Dictionary<string, object>(1);
+            par.Add("Name", prName);
+            DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROM Work WHERE ArtistName = @Name", par);
+            List<clsAllWork> lcWorks = new List<clsAllWork>();
+
+            foreach (DataRow dr in lcResult.Rows) lcWorks.Add(dataRow2AllWork(dr));
+            return lcWorks;
+        }
+
+        private clsAllWork dataRow2AllWork(DataRow dr)
+        {
+            return new clsAllWork()
+            {
+                Name = Convert.ToString(dr["Name"]),
+                Date = Convert.ToDateTime(dr["Date"]),
+                Value = Convert.ToDecimal(dr["Value"]),
+                Width = dr["Width"] is DBNull ? (float?)null : Convert.ToSingle(dr["Width"]),
+                Height = dr["Height"] is DBNull ? (float?)null : Convert.ToSingle(dr["Height"]),
+                Type = Convert.ToString(dr["Type"]),
+                Weight = dr["Weight"] is DBNull ? (float?)null : Convert.ToSingle(dr["Weight"]),
+                Material = Convert.ToString(dr["Material"]),
+                ArtistName = Convert.ToString(dr["ArtistName"]),
+            };
         }
 
         public string PutArtist(clsArtist prArtist)
@@ -64,8 +92,7 @@ namespace Gallery3Selfhost
             try
             {
                 int lcRecCount = clsDbConnection.Execute(
-                    "INSERT INTO Artist VALUES(@Name, @Speciality, @Phone)",
-                    prepareArtistParameters(prArtist));
+                    "INSERT INTO Artist VALUES(@Name, @Speciality, @Phone)", prepareArtistParameters(prArtist));
                 if (lcRecCount == 1)
                     return "One artist added";
                 else
