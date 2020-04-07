@@ -57,14 +57,13 @@ namespace Gallery3WinForm
         public delegate void LoadWorkFormDelegate(clsAllWork prWork);
         public static Dictionary<char, Delegate> _WorksForm = new Dictionary<char, Delegate>
         {
-            { 'P', new LoadWorkFormDelegate(frmPainting.Run) },
-            { 'H', null },
-            { 'S', null }
+            { 'P', new LoadWorkFormDelegate(frmPainting.Run)},
+            { 'H', new LoadWorkFormDelegate(frmPhotograph.Run)},
+            { 'S', new LoadWorkFormDelegate(frmSculpture.Run)}
         };
 
         public static void DispatchWorkForm(clsAllWork prWork) {
-             char lcType = char.Parse(prWork.Type);
-            _WorksForm[lcType].DynamicInvoke(prWork);
+            _WorksForm[prWork.WorkType].DynamicInvoke(prWork);
         }
 
     }

@@ -1,39 +1,36 @@
-using System;
-
 namespace Gallery3WinForm
 {
-    public sealed partial class frmPainting : Gallery3WinForm.frmWork
+    public sealed partial class frmPhotograph : Gallery3WinForm.frmWork
     {   //Singleton
-        private static readonly frmPainting Instance = new frmPainting();
+        public static readonly frmPhotograph Instance = new frmPhotograph();
 
-        private frmPainting()
+        private frmPhotograph()
         {
             InitializeComponent();
         }
 
-        public static void Run(clsAllWork prPainting)
+        public static void Run(clsAllWork prPhotograph)
         {
-            Instance.SetDetails(prPainting);
+            Instance.SetDetails(prPhotograph);
         }
 
         protected override void updateForm()
         {
             base.updateForm();
-            //clsPainting lcWork = (clsPainting)_Work;
+            //clsAllWork lcWork = (clsAllWork)this._Work;
             txtWidth.Text = _Work.Width.ToString();
             txtHeight.Text = _Work.Height.ToString();
-            txtType.Text = _Work.Type.ToString();
+            txtType.Text = _Work.Type;
         }
 
         protected override void pushData()
         {
             base.pushData();
-            //clsPainting lcWork = (clsPainting)_Work;
+            //clsAllWork lcWork = (clsAllWork)_Work;
             _Work.Width = float.Parse(txtWidth.Text);
-            _Work.Height = float.Parse(txtHeight.Text);
+            _Work.Height = float.Parse(txtHeight.Text);    
             _Work.Type = txtType.Text;
         }
-
     }
 }
 

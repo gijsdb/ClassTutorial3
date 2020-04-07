@@ -47,6 +47,7 @@ namespace Gallery3Selfhost
         {
             return new clsAllWork()
             {
+                WorkType = Convert.ToChar(dr["WorkType"]),
                 Name = Convert.ToString(dr["Name"]),
                 Date = Convert.ToDateTime(dr["Date"]),
                 Value = Convert.ToDecimal(dr["Value"]),
